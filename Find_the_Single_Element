@@ -1,0 +1,9 @@
+int getSingleElement(vector<int> &arr) {
+    for(int i=0; i<arr.size(); i+=2){
+        if(arr[i]==arr[i+1]) 
+		  continue;
+        else 
+		  return arr[i];
+    }
+    return -1;
+}
