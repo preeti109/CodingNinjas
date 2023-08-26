@@ -1,0 +1,22 @@
+#include <bits/stdc++.h> 
+
+void quickSortHelper(vector<int> &arr, int s, int e){
+    if(s >= e)
+        return;
+    int pivot = arr[e], i = s, j = s;
+    while(i < e) {
+        if(arr[i] <= pivot) {
+            swap(arr[i], arr[j]);
+            j++;
+        }
+        i++;
+    }
+    swap(arr[e], arr[j]);
+    quickSortHelper(arr, s, j-1);
+    quickSortHelper(arr, j+1, e);
+}
+
+vector<int> quickSort(vector<int> arr) {
+    quickSortHelper(arr, 0, arr.size()-1);
+    return arr;
+}
