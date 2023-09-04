@@ -1,0 +1,27 @@
+import java.util.* ;
+import java.io.*; 
+public class Solution {
+	public static int[] findArraySum(int[] a, int n, int[] b, int m) {
+        int sum1=0, sum2=0;
+        for(int i=0; i<n; i++) 
+            sum1 = sum1*10 + a[i];
+        for (int i=0; i<m; i++) 
+            sum2 = sum2*10 + b[i];
+        int sum = sum1+sum2;
+        int len=0;
+        int tempSum=sum;
+        while(tempSum > 0) {
+            len++;
+            tempSum /= 10;
+        }
+        int[] arr = new int[len];
+        int j = len-1;
+        while (sum > 0) {
+            int ld = sum%10;
+            arr[j] = ld;
+            sum = sum/10;
+            j--;
+        }
+        return arr;
+    }  
+}
