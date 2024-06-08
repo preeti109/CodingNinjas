@@ -1,0 +1,29 @@
+import java.util.*;
+public class Solution {
+    public static int[] findRepeatingAndMissingNumbers(int[] nums) {
+    	int n = nums.length;
+        int repeat = 0;
+        int missing = 0;
+        Arrays.sort(nums);
+
+        Set<Integer> numSet = new HashSet<>();
+        for (int element : nums) {
+            if (numSet.contains(element)) {
+                repeat = element;
+                break;
+            }
+            numSet.add(element);
+        }
+
+        int expectedSum = n * (n + 1) / 2;
+        int actualSum = 0;
+
+        for (int element : nums) 
+            actualSum += element;
+
+        missing = expectedSum - actualSum + repeat;   
+
+        int finalans[] = { repeat, missing };
+        return finalans;
+    }
+}
