@@ -1,0 +1,51 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class Node {
+public:
+    int data;
+    Node* next;
+    Node(int data) {
+        this->data = data;
+        this->next = nullptr;
+    }
+};
+
+vector<int> mergeKSortedArrays(vector<vector<int>>& kArrays, int k) {
+    priority_queue<pair<int, Node*>, vector<pair<int, Node*>>, greater<pair<int, Node*>>> pq;
+    vector<Node*> listArray(k, nullptr);
+
+    for (int i = 0; i < k; i++) {
+        if (!kArrays[i].empty()) {
+            listArray[i] = new Node(kArrays[i][0]);
+            Node* curr = listArray[i];
+            for (int j = 1; j < kArrays[i].size(); j++) {
+                curr->next = new Node(kArrays[i][j]);
+                curr = curr->next;
+            }
+            pq.push({listArray[i]->data, listArray[i]});
+        }
+    }
+
+    vector<int> result;
+
+    while (!pq.empty()) {
+        auto it = pq.top();
+        pq.pop();
+        result.push_back(it.first);
+
+        if (it.second->next) 
+            pq.push({it.second->next->data, it.second->next});
+    }
+
+    for (int i = 0; i < k; i++) {
+        Node* curr = listArray[i];
+        while (curr) {
+            Node* temp = curr;
+            curr = curr->next;
+            delete temp;
+        }
+    }
+
+    return result;
+}
