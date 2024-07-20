@@ -1,0 +1,55 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Node {
+public:
+    string data;
+    Node* prev;
+    Node* next;
+
+    Node(string data) : data(data), prev(nullptr), next(nullptr) {}
+};
+
+class Browser {
+private:
+    Node* current; 
+    Node* head;    
+    Node* tail;   
+    Node* forwardPtr;
+    
+public:
+    Browser(string homepage) {
+        head = new Node(homepage);
+        current = head;
+        tail = head;
+        forwardPtr = nullptr; 
+    }
+
+    void visit(string &url) {
+        Node* newNode = new Node(url);
+        current->next = newNode;
+        newNode->prev = current;
+        forwardPtr = nullptr; 
+        current = newNode; 
+        tail = newNode; 
+    }
+
+    string back(int steps) {
+        while (steps > 0 && current->prev != nullptr) {
+            forwardPtr = current; 
+            current = current->prev; 
+            steps--;
+        }
+        return current->data;
+    }
+
+    string forward(int steps) {
+        while (steps > 0 && forwardPtr != nullptr) {
+            current = forwardPtr; 
+            forwardPtr = forwardPtr->next;
+            steps--;
+        }
+        return current->data;
+    }
+};
