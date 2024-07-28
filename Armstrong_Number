@@ -1,0 +1,22 @@
+#include <bits/stdc++.h> 
+bool isArmstrong(int num) {
+    int sum=0, temp=num;
+    int n=0, original=num;
+
+    while(original>0) {
+        original /= 10;
+        n++;
+    }
+
+    original = temp; 
+
+    while(num>0) {
+        int digit = num % 10;
+        int power = 1;
+        for(int i=0; i<n; i++) 
+            power *= digit;
+        sum += power;
+        num /= 10;
+    }
+    return sum == temp;
+}
